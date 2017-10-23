@@ -1,1 +1,1 @@
-worker: Python3 Bot.py
+web: gunicorn Bot.py
