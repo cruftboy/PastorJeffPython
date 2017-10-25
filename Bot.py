@@ -23,13 +23,13 @@ async def on_message(message):
 	for member in client.get_all_members():
 		members.append(member)
 
-		
+
 	if(message.author.id != client.user.id):
 		for member in members:
 			for role in member.roles:
 				if("Lucky Boy" in role.name):
 					try:
-						await client.remove_roles(member, "Lucky Boy")
+						await client.remove_roles(member, "@&372792383215239169")
 						await client.send_message(message.channel, "The old lucky boy will soon be replaced!")
 					except:
 						await client.send_message(message.channel, "The lucky boy has hidden from the law!")
@@ -38,7 +38,7 @@ async def on_message(message):
 		lucky = random.choice(members)
 
 		try:
-			await client.add_roles(lucky, "Lucky Boy")
+			await client.add_roles(lucky, "@&372792383215239169")
 			await client.send_message(message.channel, "The lucky boy has been chosen and gifted.")
 		except:
 			await client.send_message(message.channel, "The lucky boy has been chosen, but where could he be?")
