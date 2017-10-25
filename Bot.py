@@ -24,13 +24,20 @@ async def on_message(message):
 		members.append(member)
 
 	for member in members:
-		if('lucky boy' in member.display_name):
-			await client.change_nickname(member, None)
+		for role in member.roles:
+			if("Lucky Boy" in role.name):
+				try:
+					client.remove_roles(member, "Lucky Boy")
+				except:
+					pass
 
 		
 	lucky = random.choice(members)
 
-	await client.change_nickname(lucky, 'lucky boy')
+	try:
+		client.add_roles(lucky, "Lucky Boy")
+	except:
+		pass
 
 
 
