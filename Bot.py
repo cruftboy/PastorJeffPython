@@ -27,7 +27,7 @@ async def on_message(message):
 		for role in member.roles:
 			if("Lucky Boy" in role.name):
 				try:
-					client.remove_roles(member, "Lucky Boy")
+					await client.remove_roles(member, "Lucky Boy")
 				except:
 					pass
 
@@ -35,7 +35,7 @@ async def on_message(message):
 	lucky = random.choice(members)
 
 	try:
-		client.add_roles(lucky, "Lucky Boy")
+		await client.add_roles(lucky, "Lucky Boy")
 	except:
 		pass
 
