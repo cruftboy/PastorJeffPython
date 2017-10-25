@@ -16,42 +16,41 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-
-
-	members = []
-
-	for member in client.get_all_members():
-		members.append(member)
-
-
 	if(message.author.id != client.user.id):
+
+		members = []
+
+		for member in client.get_all_members():
+			members.append(member)
+
+
+		role = discord.utils.get(message.server.roles, name="Lucky boy")
+
 		for member in members:
-			for role in member.roles:
-				if("Lucky Boy" in role.name):
-					try:
-						await client.remove_roles(member, "372792383215239169")
-						await client.send_message(message.channel, "Took role @&372792383215239169 from user")
-					except:
-						await client.send_message(message.channel, "ERR: Failed to take role @&372792383215239169 from user")
+			for allroles in member.roles:
+				if(role in member.roles):
+					await client.remove_roles(member, role)
 
-			
-		lucky = random.choice(members)
 
-		try:
-			await client.add_roles(lucky, "372792383215239169")
-			await client.send_message(message.channel, "Role @&372792383215239169 given to " lucky.display_name)
-		except:
-			await client.send_message(message.channel, "ERR: Failed to give role @&372792383215239169 to " lucky.display_name)
+		added = False
 
+		while(added != True):
+			lucky = random.choice(members)
+			try:
+				await client.add_roles(lucky, role)
+				added = True
+			except discord.Forbidden:
+				await client.send_message(message.channel, "I don't have perms to add roles.")
+				added = False
 
 
 
-	if('lord' in  message.author.display_name or 'Lord' in  message.author.display_name):
-		lord = message.author
-		await client.change_nickname(lord, 'sinner')
-		await client.send_message(message.channel, 'Impersonating the lord is a sin, so you are a sinner')
 
-	if(message.author.id != client.user.id):
+		if('lord' in  message.author.display_name or 'Lord' in  message.author.display_name):
+			lord = message.author
+			await client.change_nickname(lord, 'sinner')
+			await client.send_message(message.channel, 'Impersonating the lord is a sin, so you are a sinner')
+
 		messagelower = message.content
 		messagelower = messagelower.lower()
 		if('heck' in messagelower or 'hell' in messagelower or 'fuck' in messagelower or 'shit' in messagelower or 'cunt' in messagelower or 'bitch' in messagelower or 'ass' in messagelower or 'butt' in messagelower or 'bum' in messagelower or 'frick' in messagelower or 'damn' in messagelower or 'darn' in messagelower or 'dang' in messagelower or 'bastard' in messagelower or 'anus' in messagelower or 'gosh' in messagelower or 'fart' in messagelower or 'stupid' in messagelower or 'idiot' in messagelower):
@@ -60,4 +59,6 @@ async def on_message(message):
 			await client.send_message(message.channel, 'I would rather @ the lord with my prayers!')
 		elif("who's here" in messagelower or "who is here" in messagelower):
 			await client.send_message(message.channel, members)
+
+
 client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')
