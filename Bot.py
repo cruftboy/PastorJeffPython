@@ -29,19 +29,19 @@ async def on_message(message):
 			for role in member.roles:
 				if("Lucky Boy" in role.name):
 					try:
-						await client.remove_roles(member, "@&372792383215239169")
-						await client.send_message(message.channel, "The old lucky boy will soon be replaced!")
+						await client.remove_roles(member, "372792383215239169")
+						await client.send_message(message.channel, "Took role @&372792383215239169 from user")
 					except:
-						await client.send_message(message.channel, "The lucky boy has hidden from the law!")
+						await client.send_message(message.channel, "ERR: Failed to take role @&372792383215239169 from user")
 
 			
 		lucky = random.choice(members)
 
 		try:
-			await client.add_roles(lucky, "@&372792383215239169")
-			await client.send_message(message.channel, "The lucky boy has been chosen and gifted.")
+			await client.add_roles(lucky, "372792383215239169")
+			await client.send_message(message.channel, "Role @&372792383215239169 given to " lucky.display_name)
 		except:
-			await client.send_message(message.channel, "The lucky boy has been chosen, but where could he be?")
+			await client.send_message(message.channel, "ERR: Failed to give role @&372792383215239169 to " lucky.display_name)
 
 
 
