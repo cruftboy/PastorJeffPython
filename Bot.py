@@ -54,6 +54,7 @@ async def on_message(message):
 				for allroles in member.roles:
 					if(role in member.roles):
 						await client.remove_roles(member, role)
+						await client.send_message(member, "You are no longer the lucky boy!")
 
 
 			added = False
@@ -62,6 +63,7 @@ async def on_message(message):
 				lucky = random.choice(members)
 				try:
 					await client.add_roles(lucky, role)
+					await client.send_message(lucky, "You are the lucky boy!")
 					added = True
 				except discord.Forbidden:
 					added = False
