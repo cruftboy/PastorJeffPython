@@ -44,7 +44,8 @@ async def on_message(message):
 			await client.send_message(message.channel, members)
 
 		#Password
-		elif(message.content == '!NewLuckyBoy'):
+
+		if(message.content == '!NewLuckyBoy'):
 			await client.delete_message(message)
 
 			#New Lucky Boy
@@ -92,4 +93,32 @@ async def on_message(message):
 				except discord.Forbidden:
 					added = False
 
+		elif('!NewLucky' in message.content):
+			await client.delete_message(message)
+
+			#New Lucky Boy
+			role = discord.utils.get(message.server.roles, name="Lucky boy")
+
+			for member in members:
+				for allroles in member.roles:
+					if(role in member.roles):
+						await client.remove_roles(member, role)
+						await client.send_message(member, "You are no longer the lucky boy!")
+
+			user = message.content.replace('!NewLucky','')
+
+			for member in members:
+				if(member.display_name == user):
+					user = member
+
+			added = False
+
+
+			while(added != True):
+				try:
+					await client.add_roles(user, role)
+					await client.send_message(user, "You are the lucky boy!")
+					added = True
+				except discord.Forbidden:
+					added = False
 client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')
