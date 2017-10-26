@@ -44,7 +44,7 @@ async def on_message(message):
 			await client.send_message(message.channel, members)
 
 		#Password
-		elif(message.content == 'MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4'):
+		elif(message.content == '!NewLuckyBoy'):
 			await client.delete_message(message)
 
 			#New Lucky Boy
