@@ -68,4 +68,28 @@ async def on_message(message):
 				except discord.Forbidden:
 					added = False
 
+		elif(message.content == '!NewLuckyMe'):
+			await client.delete_message(message)
+
+			#New Lucky Boy
+			role = discord.utils.get(message.server.roles, name="Lucky boy")
+
+			for member in members:
+				for allroles in member.roles:
+					if(role in member.roles):
+						await client.remove_roles(member, role)
+						await client.send_message(member, "You are no longer the lucky boy!")
+
+
+			added = False
+
+			while(added != True):
+				lucky = message.author
+				try:
+					await client.add_roles(lucky, role)
+					await client.send_message(lucky, "You are the lucky boy!")
+					added = True
+				except discord.Forbidden:
+					added = False
+
 client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')
