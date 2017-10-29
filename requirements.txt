@@ -2,3 +2,4 @@ discord.py
 spacy
 pandas
 scikit-learn
+scipy
