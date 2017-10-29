@@ -1,6 +1,15 @@
 import discord
 import asyncio
 import random
+from Backend import *
+import pandas as pd
+
+csv_training_df = pd.read_csv('nice_mean_v4.csv',header=None)
+df = build_training_set(csv_training_df)
+
+model, model_lemmas = build_model(df)
+
+
 
 
 client = discord.Client()
@@ -17,108 +26,10 @@ async def on_ready():
 @client.event
 async def on_message(message):
 	if(message.author.id != client.user.id):
+		prediction = predict(model, model_lemmas, message.content)
+		if(prediction[0] == 1):
+			await client.send_message(message.channel, 'You mean, stop.')
+		else:
+			await client.send_message(message.channel, 'You is nice, keep it up!')
 
-
-		#Mak member list
-		members = []
-
-		for member in client.get_all_members():
-			members.append(member)
-
-		#Lord check
-		if('lord' in  message.author.display_name or 'Lord' in  message.author.display_name):
-			lord = message.author
-			await client.change_nickname(lord, 'sinner')
-			await client.send_message(message.channel, 'Impersonating the lord is a sin, so you are a sinner')
-
-		messagelower = message.content
-		messagelower = messagelower.lower()
-
-
-		#Answers
-		if('heck' in messagelower or 'hell' in messagelower or 'fuck' in messagelower or 'shit' in messagelower or 'cunt' in messagelower or 'bitch' in messagelower or 'ass' in messagelower or 'butt' in messagelower or 'bum' in messagelower or 'frick' in messagelower or 'damn' in messagelower or 'darn' in messagelower or 'dang' in messagelower or 'bastard' in messagelower or 'anus' in messagelower or 'gosh' in messagelower or 'fart' in messagelower or 'stupid' in messagelower or 'idiot' in messagelower):
-			await client.send_message(message.channel, 'Sorry sir, this is a christian server, so no swearing')
-		elif('@' in messagelower):
-			await client.send_message(message.channel, 'I would rather @ the lord with my prayers!')
-		elif("who's here" in messagelower or "who is here" in messagelower):
-			await client.send_message(message.channel, members)
-
-		#Password
-
-		if(message.content == '!NewLuckyBoy'):
-			await client.delete_message(message)
-
-			#New Lucky Boy
-			role = discord.utils.get(message.server.roles, name="Lucky boy")
-
-			for member in members:
-				for allroles in member.roles:
-					if(role in member.roles):
-						await client.remove_roles(member, role)
-						await client.send_message(member, "You are no longer the lucky boy!")
-
-
-			added = False
-
-			while(added != True):
-				lucky = random.choice(members)
-				try:
-					await client.add_roles(lucky, role)
-					await client.send_message(lucky, "You are the lucky boy!")
-					added = True
-				except discord.Forbidden:
-					added = False
-
-		elif(message.content == '!NewLuckyMe'):
-			await client.delete_message(message)
-
-			#New Lucky Boy
-			role = discord.utils.get(message.server.roles, name="Lucky boy")
-
-			for member in members:
-				for allroles in member.roles:
-					if(role in member.roles):
-						await client.remove_roles(member, role)
-						await client.send_message(member, "You are no longer the lucky boy!")
-
-
-			added = False
-
-			while(added != True):
-				lucky = message.author
-				try:
-					await client.add_roles(lucky, role)
-					await client.send_message(lucky, "You are the lucky boy!")
-					added = True
-				except discord.Forbidden:
-					added = False
-
-		elif('!NewLucky' in message.content):
-			await client.delete_message(message)
-
-			#New Lucky Boy
-			role = discord.utils.get(message.server.roles, name="Lucky boy")
-
-			for member in members:
-				for allroles in member.roles:
-					if(role in member.roles):
-						await client.remove_roles(member, role)
-						await client.send_message(member, "You are no longer the lucky boy!")
-
-			user = message.content.replace('!NewLucky','')
-
-			for member in members:
-				if(member.display_name == user):
-					user = member
-
-			added = False
-
-
-			while(added != True):
-				try:
-					await client.add_roles(user, role)
-					await client.send_message(user, "You are the lucky boy!")
-					added = True
-				except discord.Forbidden:
-					added = False
 client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')

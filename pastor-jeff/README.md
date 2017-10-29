@@ -1,0 +1,1 @@
+The pastor jeff bot is a discord bot modeled around a christian pastor with strong values. He will call out any swearing, reminds users to pray to God, and most importantly has its own anti-bullying measures using machine learning. To run the bot, simply <bot running instructions>.
