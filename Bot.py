@@ -1,8 +1,10 @@
 import discord
 import asyncio
 import random
-from Backend import *
+from Backend import * 
+from pastor-jeff import Backend
 import pandas as pd
+import os
 
 csv_training_df = pd.read_csv('nice_mean_v4.csv',header=None)
 df = build_training_set(csv_training_df)
@@ -32,4 +34,4 @@ async def on_message(message):
 		else:
 			await client.send_message(message.channel, 'You is nice, keep it up!')
 
-client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')
+client.run(os.environ['discord_api_key'])
