@@ -2,7 +2,6 @@ import discord
 import asyncio
 import random
 from Backend import * 
-from pastor-jeff import Backend
 import pandas as pd
 import os
 
