@@ -34,4 +34,4 @@ async def on_message(message):
 		else:
 			await client.send_message(message.channel, 'You is nice, keep it up!')
 
-client.run(os.environ['discord_api_key'])
+client.run('MzcwMjg2MTAzMjkyNDExOTA3.DM_ZDQ.Lif3NSbl4aCBecwJ2qZl-6yuLV4')
